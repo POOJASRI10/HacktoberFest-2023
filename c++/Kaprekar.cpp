@@ -4,62 +4,48 @@
 #include <cmath>
 using namespace std;
 
-bool isKaprekar(int number, int base)
-{
-    if (number < 0 || base <= 1)
-    {
-        return false;
+bool isKaprekar(int number, int base) {
+    if (number < 0 || base <= 1) {
+        return false; // Invalid input case
     }
+
     long long squared = static_cast<long long>(number) * number;
     long long divisor = 1;
-    while (squared / divisor >= base)
-    {
+
+    // Find the appropriate divisor for splitting the squared number
+    while (squared / divisor >= base) {
         divisor *= base;
     }
-    while (divisor > 0)
-    {
+
+    // Try splitting the square into two parts and check the Kaprekar condition
+    while (divisor > 0) {
         long long left = squared / divisor;
         long long right = squared % divisor;
-        if (left + right == number && right > 0)
-        {
+
+        // Check if the sum of left and right equals the original number
+        if (left + right == number && right > 0) {
             return true;
         }
         divisor /= base;
     }
     return false;
 }
-int main()
-{
+
+int main() {
     int number, base;
+
+    // Take user input
     cout << "Enter a number: ";
     cin >> number;
     cout << "Enter the base: ";
     cin >> base;
-    if (isKaprekar(number, base))
-    {
+
+    // Check and display if the number is a Kaprekar number
+    if (isKaprekar(number, base)) {
         cout << number << " is a Kaprekar number in base " << base << endl;
-    }
-    else
-    {
+    } else {
         cout << number << " is not a Kaprekar number in base " << base << endl;
     }
+
     return 0;
 }
-
-// Output:
-
-// Enter a number: 9
-// Enter the base: 10
-// 9 is a Kaprekar number in base 10
-// Enter a number: 45
-// Enter the base: 10
-// 45 is a Kaprekar number in base 10
-// Enter a number: 297
-// Enter the base: 10// 297 is a Kaprekar number in base 10
-
-// Non Kaprekar Numbers
-// Enter a number: 13
-// Enter the base: 10
-// 13 is not a Kaprekar number in base 10
-// Enter a number: 19
-// Enter the base: 10// 19 is not a Kaprekar number in base 10
